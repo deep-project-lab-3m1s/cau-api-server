@@ -1,5 +1,6 @@
 package cau.cau_be.job.entity;
 
+import cau.cau_be.common.entity.JobCompany;
 import cau.cau_be.common.entity.JobSubject;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -29,20 +30,25 @@ public class Job {
   @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<JobSubject> jobSubjects;
 
+  @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+  private final List<JobCompany> jobCompanies;
+
   protected Job() {
-    this(null, null, null, null, null);
+    this(null, null, null, null, null, null);
   }
 
   public Job(String name, String description, Long salary) {
-    this(null, name, description, salary, null);
+    this(null, name, description, salary, null, null);
   }
 
-  public Job(Long id, String name, String description, Long salary, List<JobSubject> jobSubjects) {
+  public Job(Long id, String name, String description, Long salary, List<JobSubject> jobSubjects,
+      List<JobCompany> jobCompanies) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.salary = salary;
     this.jobSubjects = jobSubjects;
+    this.jobCompanies = jobCompanies;
   }
 
   public Long getId() {
@@ -55,5 +61,9 @@ public class Job {
 
   public String getDescription() {
     return description;
+  }
+
+  public Long getSalary() {
+    return salary;
   }
 }

@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
 
-  @Query("SELECT j FROM Job j JOIN j.jobSubjects js WHERE js.subject.id IN :subjectIds")
+  @Query("SELECT js.subject FROM JobSubject js WHERE js.subject.id IN :subjectIds")
   List<Job> findAllBySubjectIds(@Param("subjectIds") List<Long> subjectIds);
 }
