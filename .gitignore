@@ -38,3 +38,7 @@ out/
 
 ### Properties ###
 application-test.properties
+
+### test DB ###
+/data/demo.mv.db
+/data/demo.trace.db
