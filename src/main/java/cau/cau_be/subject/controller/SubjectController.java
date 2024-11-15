@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "과목", description = "과목 관련 API")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/subject")
 public class SubjectController {
 
   private final SubjectService subjectService;
@@ -25,7 +25,7 @@ public class SubjectController {
   }
 
   @ApiResponse(responseCode = "200", description = "전체 과목 조회 완료", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = SubjectResponse.class))))
-  @GetMapping("/subject")
+  @GetMapping
   public ResponseEntity<List<SubjectResponse>> getSubjectList() {
     return ResponseEntity.ok().body(subjectService.getSubjectList());
   }

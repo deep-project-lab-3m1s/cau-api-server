@@ -1,4 +1,4 @@
-package cau.cau_be.subject.entity;
+package cau.cau_be.job.entity;
 
 import cau.cau_be.common.entity.JobSubject;
 import jakarta.persistence.CascadeType;
@@ -11,7 +11,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Subject {
+public class Job {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,20 +20,28 @@ public class Subject {
   @Column(nullable = false)
   private final String name;
 
-  @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Column(nullable = false, columnDefinition = "TEXT")
+  private final String description;
+
+  @Column(nullable = false)
+  private final Long salary;
+
+  @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
   private final List<JobSubject> jobSubjects;
 
-  protected Subject() {
-    this(null, null, null);
+  protected Job() {
+    this(null, null, null, null, null);
   }
 
-  public Subject(String name) {
-    this(null, name, null);
+  public Job(String name, String description, Long salary) {
+    this(null, name, description, salary, null);
   }
 
-  public Subject(Long id, String name, List<JobSubject> jobSubjects) {
+  public Job(Long id, String name, String description, Long salary, List<JobSubject> jobSubjects) {
     this.id = id;
     this.name = name;
+    this.description = description;
+    this.salary = salary;
     this.jobSubjects = jobSubjects;
   }
 
@@ -43,5 +51,9 @@ public class Subject {
 
   public String getName() {
     return name;
+  }
+
+  public String getDescription() {
+    return description;
   }
 }
