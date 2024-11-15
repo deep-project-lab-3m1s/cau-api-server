@@ -40,7 +40,7 @@ public class JobController {
   }
 
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "직종 평균 연봉 및 대표 기업 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = JobInfoResponse.class)))),
+      @ApiResponse(responseCode = "200", description = "직종 평균 연봉 및 대표 기업 리스트 조회 성공", content = @Content(mediaType = "application/json", schema = @Schema(implementation = JobInfoResponse.class))),
       @ApiResponse(responseCode = "404", description = "해당 ID의 직종이 없음", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ExceptionResponse.class))))
   })
   @GetMapping("/{jobId}")
