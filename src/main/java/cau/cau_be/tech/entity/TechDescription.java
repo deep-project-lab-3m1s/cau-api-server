@@ -1,7 +1,6 @@
-package cau.cau_be.common.entity;
+package cau.cau_be.tech.entity;
 
-import cau.cau_be.subject.entity.Subject;
-import cau.cau_be.tech.entity.Tech;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,31 +9,30 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class TechSubject {
+public class TechDescription {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private final Long id;
 
+  @Column(nullable = false, columnDefinition = "TEXT")
+  private final String description;
+
   @ManyToOne
   @JoinColumn(name = "tech_id", nullable = false)
   private final Tech tech;
 
-  @ManyToOne
-  @JoinColumn(name = "subject_id", nullable = false)
-  private final Subject subject;
-
-  protected TechSubject() {
+  protected TechDescription() {
     this(null, null, null);
   }
 
-  public TechSubject(Long id, Tech tech, Subject subject) {
+  public TechDescription(Long id, String description, Tech tech) {
     this.id = id;
+    this.description = description;
     this.tech = tech;
-    this.subject = subject;
   }
 
-  public Subject getSubject() {
-    return subject;
+  public String getDescription() {
+    return description;
   }
 }

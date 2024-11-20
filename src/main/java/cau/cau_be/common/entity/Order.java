@@ -1,7 +1,7 @@
 package cau.cau_be.common.entity;
 
 import cau.cau_be.roadmap.entity.Roadmap;
-import cau.cau_be.tech.dto.Tech;
+import cau.cau_be.tech.entity.Tech;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

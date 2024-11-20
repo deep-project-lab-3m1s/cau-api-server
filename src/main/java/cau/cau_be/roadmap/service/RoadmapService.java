@@ -6,7 +6,7 @@ import cau.cau_be.exception.ErrorMessage;
 import cau.cau_be.roadmap.dto.response.RoadmapElementResponse;
 import cau.cau_be.roadmap.entity.Roadmap;
 import cau.cau_be.roadmap.repository.RoadmapRepository;
-import cau.cau_be.tech.dto.Tech;
+import cau.cau_be.tech.entity.Tech;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cau.cau_be.tech.dto;
+package cau.cau_be.tech.entity;
 
 import cau.cau_be.common.entity.Order;
 import cau.cau_be.common.entity.TechSubject;
