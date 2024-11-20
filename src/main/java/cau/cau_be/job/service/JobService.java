@@ -32,7 +32,7 @@ public class JobService {
   }
 
   public JobInfoResponse getJobInfo(JobIdRequest jobIdRequest) {
-    Job job = getValidatedJob(jobIdRequest);
+    Job job = getValidJob(jobIdRequest);
     List<CompanyResponse> companyResponses = companyService.getCompaniesRelatedJob(jobIdRequest);
     Long salary = job.getSalary();
 
@@ -40,7 +40,7 @@ public class JobService {
         companyResponses.stream().map(CompanyResponse::name).toList());
   }
 
-  private Job getValidatedJob(JobIdRequest jobIdRequest) {
+  public Job getValidJob(JobIdRequest jobIdRequest) {
     return jobRepository.findById(jobIdRequest.id()).orElseThrow(() -> new NoSuchElementException(
         ErrorMessage.NOT_FOUND_JOB.getErrorMessage()));
   }

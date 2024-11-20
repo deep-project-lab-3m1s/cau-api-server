@@ -41,7 +41,7 @@ public class TechService {
             techSubclass.getId(), techSubclass.getName())).toList();
   }
 
-  private Tech getValidTech(Long techId) {
+  public Tech getValidTech(Long techId) {
     return techRepository.findById(techId).orElseThrow(
         () -> new NoSuchElementException(ErrorMessage.NOT_FOUND_TECH.getErrorMessage()));
   }
