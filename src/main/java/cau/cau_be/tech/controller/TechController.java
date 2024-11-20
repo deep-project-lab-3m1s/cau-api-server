@@ -1,5 +1,7 @@
 package cau.cau_be.tech.controller;
 
+import cau.cau_be.certificate.dto.response.CertificateResponse;
+import cau.cau_be.certificate.service.CertificateService;
 import cau.cau_be.exception.ExceptionResponse;
 import cau.cau_be.tech.dto.request.TechIdRequest;
 import cau.cau_be.tech.dto.response.TechDescriptionResponse;
@@ -24,9 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TechController {
 
   private final TechService techService;
+  private final CertificateService certificateService;
 
-  public TechController(TechService techService) {
+  public TechController(TechService techService, CertificateService certificateService) {
     this.techService = techService;
+    this.certificateService = certificateService;
   }
 
   @ApiResponses(value = {
@@ -47,5 +51,16 @@ public class TechController {
   public ResponseEntity<List<TechSubclassResponse>> getTechSubclassList(
       @PathVariable(name = "techId") Long techId) {
     return ResponseEntity.ok().body(techService.getTechSubclassList(new TechIdRequest(techId)));
+  }
+
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "기술 관련 자격증 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CertificateResponse.class)))),
+      @ApiResponse(responseCode = "404", description = "요청한 리소스가 없음", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionResponse.class)))
+  })
+  @GetMapping("/certificate/{techId}")
+  public ResponseEntity<List<CertificateResponse>> getCertificateList(
+      @PathVariable(name = "techId") Long techId) {
+    return ResponseEntity.ok()
+        .body(certificateService.getCertificateList(new TechIdRequest(techId)));
   }
 }
