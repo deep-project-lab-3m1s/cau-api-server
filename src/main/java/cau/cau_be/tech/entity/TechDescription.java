@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class TechDescription {
@@ -18,7 +19,7 @@ public class TechDescription {
   @Column(nullable = false, columnDefinition = "TEXT")
   private final String description;
 
-  @ManyToOne
+  @OneToOne
   @JoinColumn(name = "tech_id", nullable = false)
   private final Tech tech;
 
