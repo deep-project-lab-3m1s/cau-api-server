@@ -6,33 +6,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class TechDescription {
+public class TechSubclass {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private final Long id;
 
-  @Column(nullable = false, columnDefinition = "TEXT")
-  private final String description;
+  @Column(nullable = false)
+  private final String name;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "tech_id", nullable = false)
   private final Tech tech;
 
-  protected TechDescription() {
+  protected TechSubclass() {
     this(null, null, null);
   }
 
-  public TechDescription(Long id, String description, Tech tech) {
+  public TechSubclass(Long id, String name, Tech tech) {
     this.id = id;
-    this.description = description;
+    this.name = name;
     this.tech = tech;
   }
 
-  public String getDescription() {
-    return description;
+  public Long getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
   }
 }
