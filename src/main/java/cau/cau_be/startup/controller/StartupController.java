@@ -1,5 +1,6 @@
 package cau.cau_be.startup.controller;
 
+import cau.cau_be.startup.dto.response.StartupSubjectResponse;
 import cau.cau_be.startup.dto.response.StartupTechResponse;
 import cau.cau_be.startup.service.StartupService;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -28,5 +29,11 @@ public class StartupController {
   @GetMapping("/tech")
   public ResponseEntity<List<StartupTechResponse>> getStartupTechList() {
     return ResponseEntity.ok().body(startupService.getStartupTechList());
+  }
+
+  @ApiResponse(responseCode = "200", description = "창업 관련 과목 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StartupSubjectResponse.class))))
+  @GetMapping("/subject")
+  public ResponseEntity<List<StartupSubjectResponse>> getStartupSubjectList() {
+    return ResponseEntity.ok().body(startupService.getStartupSubjectList());
   }
 }
