@@ -1,7 +1,10 @@
 package cau.cau_be.planning.service;
 
+import cau.cau_be.certificate.entity.Certificate;
+import cau.cau_be.planning.dto.response.PlanningCertificateResponse;
 import cau.cau_be.planning.dto.response.PlanningSubjectResponse;
 import cau.cau_be.planning.dto.response.PlanningTechResponse;
+import cau.cau_be.planning.repository.PlanningCertificateRepository;
 import cau.cau_be.planning.repository.PlanningSubjectRepository;
 import cau.cau_be.planning.repository.PlanningTechRepository;
 import cau.cau_be.subject.entity.Subject;
@@ -14,11 +17,14 @@ public class PlanningService {
 
   private final PlanningTechRepository planningTechRepository;
   private final PlanningSubjectRepository planningSubjectRepository;
+  private final PlanningCertificateRepository planningCertificateRepository;
 
   public PlanningService(PlanningTechRepository planningTechRepository,
-      PlanningSubjectRepository planningSubjectRepository) {
+      PlanningSubjectRepository planningSubjectRepository,
+      PlanningCertificateRepository planningCertificateRepository) {
     this.planningTechRepository = planningTechRepository;
     this.planningSubjectRepository = planningSubjectRepository;
+    this.planningCertificateRepository = planningCertificateRepository;
   }
 
   public List<PlanningTechResponse> getPlanningTechList() {
@@ -32,6 +38,13 @@ public class PlanningService {
     return planningSubjectRepository.findAll().stream().map(planningSubject -> {
       Subject subject = planningSubject.getSubject();
       return new PlanningSubjectResponse(subject.getId(), subject.getName());
+    }).toList();
+  }
+
+  public List<PlanningCertificateResponse> getPlanningCertificateList() {
+    return planningCertificateRepository.findAll().stream().map(planningCertificate -> {
+      Certificate certificate = planningCertificate.getCertificate();
+      return new PlanningCertificateResponse(certificate.getId(), certificate.getName());
     }).toList();
   }
 }

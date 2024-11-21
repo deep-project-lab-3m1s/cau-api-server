@@ -1,5 +1,6 @@
 package cau.cau_be.planning.controller;
 
+import cau.cau_be.planning.dto.response.PlanningCertificateResponse;
 import cau.cau_be.planning.dto.response.PlanningSubjectResponse;
 import cau.cau_be.planning.dto.response.PlanningTechResponse;
 import cau.cau_be.planning.service.PlanningService;
@@ -35,5 +36,11 @@ public class PlanningController {
   @GetMapping("/subject")
   public ResponseEntity<List<PlanningSubjectResponse>> getPlanningSubjectList() {
     return ResponseEntity.ok().body(planningService.getPlanningSubjectList());
+  }
+
+  @ApiResponse(responseCode = "200", description = "기획 관련 자격증 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PlanningCertificateResponse.class))))
+  @GetMapping("/certificate")
+  public ResponseEntity<List<PlanningCertificateResponse>> getPlanningCertificateList() {
+    return ResponseEntity.ok().body(planningService.getPlanningCertificateList());
   }
 }
