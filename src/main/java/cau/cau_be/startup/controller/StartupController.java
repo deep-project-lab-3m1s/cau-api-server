@@ -2,6 +2,7 @@ package cau.cau_be.startup.controller;
 
 import cau.cau_be.startup.dto.response.StartupCertificateResponse;
 import cau.cau_be.startup.dto.response.StartupSubjectResponse;
+import cau.cau_be.startup.dto.response.StartupSupportResponse;
 import cau.cau_be.startup.dto.response.StartupTechResponse;
 import cau.cau_be.startup.service.StartupService;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -42,5 +43,11 @@ public class StartupController {
   @GetMapping("/certificate")
   public ResponseEntity<List<StartupCertificateResponse>> getStartupCertificateList() {
     return ResponseEntity.ok().body(startupService.getStartupCertificateList());
+  }
+
+  @ApiResponse(responseCode = "200", description = "창업 지원 제도 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StartupSupportResponse.class))))
+  @GetMapping("/support")
+  public ResponseEntity<List<StartupSupportResponse>> getStartupSupportList() {
+    return ResponseEntity.ok().body(startupService.getStartupSupportList());
   }
 }
