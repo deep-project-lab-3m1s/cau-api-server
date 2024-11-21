@@ -1,5 +1,6 @@
 package cau.cau_be.startup.controller;
 
+import cau.cau_be.startup.dto.response.StartupCertificateResponse;
 import cau.cau_be.startup.dto.response.StartupSubjectResponse;
 import cau.cau_be.startup.dto.response.StartupTechResponse;
 import cau.cau_be.startup.service.StartupService;
@@ -35,5 +36,11 @@ public class StartupController {
   @GetMapping("/subject")
   public ResponseEntity<List<StartupSubjectResponse>> getStartupSubjectList() {
     return ResponseEntity.ok().body(startupService.getStartupSubjectList());
+  }
+
+  @ApiResponse(responseCode = "200", description = "창업 관련 자격증 리스트 조회 성공", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StartupCertificateResponse.class))))
+  @GetMapping("/certificate")
+  public ResponseEntity<List<StartupCertificateResponse>> getStartupCertificateList() {
+    return ResponseEntity.ok().body(startupService.getStartupCertificateList());
   }
 }
