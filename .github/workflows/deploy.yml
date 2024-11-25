@@ -67,7 +67,8 @@ jobs:
             --group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
             --protocol tcp \
             --port 22 \
-            --cidr "${RUNNER_IP}/32"
+            --cidr "${RUNNER_IP}/32" \
+            --region ${{ secrets.AWS_REGION }}
 
       - name: Configure SSH private key
         run: |
@@ -97,7 +98,8 @@ jobs:
             --group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
             --protocol tcp \
             --port 22 \
-            --cidr "${RUNNER_IP}/32"
+            --cidr "${RUNNER_IP}/32" \
+            --region ${{ secrets.AWS_REGION }}
             
       - name: Clean up SSH key
         run: rm ./key-derby.pem
