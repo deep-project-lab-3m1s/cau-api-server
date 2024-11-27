@@ -90,9 +90,10 @@ jobs:
 
       - name: Deploy to AWS EC2
         run: |
-          # scp로 EC2에 jar 파일 전송
-          scp -vvv -l 500 -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
-          ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
+          # # scp로 EC2에 jar 파일 전송
+          # scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
+          # ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
+          rsync -avz -e "ssh -i ./key-derby.pem" ./cau-be-0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
 
       - name: Restart API Server
         run: |
