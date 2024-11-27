@@ -56,6 +56,13 @@ jobs:
         with:
           name: cau-be-jar
 
+      - name: Configure AWS credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          echo "AWS credentials configured."
+
       - name: Get GitHub Actions Runner IP
         id: get_ip
         run: echo $(curl -s https://api64.ipify.org) > RUNNER_IP.txt
