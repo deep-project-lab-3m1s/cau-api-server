@@ -98,7 +98,7 @@ jobs:
       - name: Deploy to AWS EC2
         run: |
           # # scp로 EC2에 jar 파일 전송
-          # scp -vvv -o Compression=no -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
+          # scp -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
           # ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
 
       - name: AWS 환경 변수 다시 적용
