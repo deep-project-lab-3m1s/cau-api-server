@@ -87,26 +87,12 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.AWS_EC2_IP }}" >> ~/.ssh/known_hosts
-          
-      - name: AWS 환경 변수 초기화
-        run: |
-          # AWS 환경 변수 해제
-          unset AWS_ACCESS_KEY_ID
-          unset AWS_SECRET_ACCESS_KEY
-          unset AWS_REGION
 
       - name: Deploy to AWS EC2
         run: |
           # scp로 EC2에 jar 파일 전송
           scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
           ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
-
-      - name: AWS 환경 변수 다시 적용
-        run: |
-          # AWS 환경 변수를 다시 설정
-          export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-          export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          export AWS_REGION=${{ secrets.AWS_REGION }}
       
       - name: Restart API Server
         run: |
