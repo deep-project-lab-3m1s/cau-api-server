@@ -92,7 +92,9 @@ jobs:
         run: |
           # scp로 EC2에 jar 파일 전송
           scp -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
-          
+
+      - name: Restart API Server
+        run: |
           # EC2의 deploy.sh 실행
           ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
             /home/ubuntu/repository/deploy.sh
