@@ -91,14 +91,16 @@ jobs:
       - name: Deploy to AWS EC2
         run: |
           # scp로 EC2에 jar 파일 전송
-          scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
+          tar -czvf cau-be-0.0.1-SNAPSHOT.jar.tar.gz ./cau-be-0.0.1-SNAPSHOT.jar
+          scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar.tar.gz \
           ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
       
       - name: Restart API Server
         run: |
           # EC2의 deploy.sh 실행
-          ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
+          ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
             /home/ubuntu/repository/deploy.sh
+            tar -xzvf /home/ubuntu/repository/cau-be-0.0.1-SNAPSHOT.jar.tar.gz -C /home/ubuntu/repository
           EOF
       
       - name: Remove GitHub Actions IP from AWS Security Group
