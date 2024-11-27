@@ -92,8 +92,9 @@ jobs:
         run: |
           # scp로 EC2에 jar 파일 전송
           tar -czvf cau-be-0.0.1-SNAPSHOT.jar.tar.gz ./cau-be-0.0.1-SNAPSHOT.jar
-          scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar.tar.gz \
-          ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
+          # scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar.tar.gz \
+          # ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
+          rsync -avz -e "ssh -i ./key-derby.pem" cau-be-0.0.1-SNAPSHOT.jar.tar.gz ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
       
       - name: Restart API Server
         run: |
