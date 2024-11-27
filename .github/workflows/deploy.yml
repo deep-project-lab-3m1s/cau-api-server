@@ -95,13 +95,13 @@ jobs:
           # scp -vvv -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar.tar.gz \
           # ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
           rsync -avzP -e "ssh -i ./key-derby.pem" cau-be-0.0.1-SNAPSHOT.jar.tar.gz ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
-      
+          
       - name: Restart API Server
         run: |
           # EC2의 deploy.sh 실행
           ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << 'EOF'
-            /home/ubuntu/repository/deploy.sh
             tar -xzvf /home/ubuntu/repository/cau-be-0.0.1-SNAPSHOT.jar.tar.gz -C /home/ubuntu/repository
+            /home/ubuntu/repository/deploy.sh
           EOF
       
       - name: Remove GitHub Actions IP from AWS Security Group
