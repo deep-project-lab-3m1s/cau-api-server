@@ -87,6 +87,13 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.AWS_EC2_IP }}" >> ~/.ssh/known_hosts
+          
+      - name: AWS 환경 변수 초기화
+        run: |
+          # AWS 환경 변수 해제
+          unset AWS_ACCESS_KEY_ID
+          unset AWS_SECRET_ACCESS_KEY
+          unset AWS_REGION
 
       - name: Deploy to AWS EC2
         run: |
@@ -94,29 +101,15 @@ jobs:
           # scp -vvv -o Compression=no -i ./key-derby.pem ./cau-be-0.0.1-SNAPSHOT.jar \
           # ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository
 
-      - name: AWS 환경 변수 초기화
-        run: |
-          # AWS 환경 변수 해제
-          unset AWS_ACCESS_KEY_ID
-          unset AWS_SECRET_ACCESS_KEY
-          unset AWS_REGION
-      
-      - name: SCP로 EC2에 빌드된 파일 전송하기
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.AWS_EC2_IP }}
-          username: ubuntu
-          key: ./key-derby.pem
-          source: ./cau-be-0.0.1-SNAPSHOT.jar
-          target: /home/ubuntu/repository
-      
-      - name: Restart API Server
+      - name: AWS 환경 변수 다시 적용
         run: |
           # AWS 환경 변수를 다시 설정
           export AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           export AWS_REGION=${{ secrets.AWS_REGION }}
-          
+      
+      - name: Restart API Server
+        run: |
           # EC2의 deploy.sh 실행
           ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
             /home/ubuntu/repository/deploy.sh
