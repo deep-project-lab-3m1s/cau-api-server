@@ -95,12 +95,12 @@ jobs:
       #     ubuntu@${{ secrets.AWS_EC2_IP }}:/home/ubuntu/repository \
       #     && echo "JAR file transferred"
 
-      # - name: Restart API Server
-      #   run: |
-      #     # EC2의 deploy.sh 실행
-      #     ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
-      #       /home/ubuntu/repository/deploy.sh
-      #     EOF
+      - name: Restart API Server
+        run: |
+          # EC2의 deploy.sh 실행
+          ssh -i ./key-derby.pem ubuntu@${{ secrets.AWS_EC2_IP }} << EOF
+            /home/ubuntu/repository/deploy.sh
+          EOF
       
       - name: Remove GitHub Actions IP from AWS Security Group
         run: |
